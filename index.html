@@ -135,8 +135,11 @@ ul{margin:0;padding:0;list-style:none}
   content:"";position:absolute;right:-5px;bottom:-4px;width:12px;height:12px;border-radius:50%;
   background:var(--warn);border:2px solid var(--ground);
 }
-.brandname{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:0;color:var(--ink)}
+.brandname{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:0;color:var(--ink);
+  display:inline-flex;align-items:baseline;gap:5px;padding:4px 10px 4px 0;border-radius:999px}
+.brandname:hover{color:var(--accent)}
 .brandname i{font-style:normal;color:var(--accent)}
+.brandname .cv{font-size:10px;color:var(--muted)}
 .brandbar .today{
   margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--muted);
   text-transform:uppercase;letter-spacing:.06em;
@@ -492,7 +495,8 @@ main{padding:0 18px 128px}
   <div class="wl-inner">
     <div class="wl-people" aria-hidden="true">
       <svg viewBox="0 0 64 80" class="pp p1"><circle cx="32" cy="24" r="18" fill="var(--warn)"/><circle cx="25" cy="21" r="2.2" fill="#2B211C"/><circle cx="39" cy="21" r="2.2" fill="#2B211C"/><path d="M24 29q8 7 16 0" stroke="#2B211C" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="20" cy="27" r="3" fill="var(--rose)" opacity=".8"/><circle cx="44" cy="27" r="3" fill="var(--rose)" opacity=".8"/><path d="M14 78V60a18 18 0 0 1 36 0v18z" fill="var(--warn)"/></svg>
-      <svg viewBox="0 0 64 80" class="pp p2"><circle cx="32" cy="24" r="18" fill="var(--accent)"/><circle cx="25" cy="21" r="2.2" fill="#2B211C"/><circle cx="39" cy="21" r="2.2" fill="#2B211C"/><path d="M23 28q9 9 18 0" stroke="#2B211C" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="20" cy="27" r="3" fill="var(--rose)" opacity=".8"/><circle cx="44" cy="27" r="3" fill="var(--rose)" opacity=".8"/><path d="M14 78V60a18 18 0 0 1 36 0v18z" fill="var(--accent)"/></svg>
+      <div class="pp me" id="wl-me" hidden></div>
+      <svg viewBox="0 0 64 80" class="pp p2" id="wl-p2"><circle cx="32" cy="24" r="18" fill="var(--accent)"/><circle cx="25" cy="21" r="2.2" fill="#2B211C"/><circle cx="39" cy="21" r="2.2" fill="#2B211C"/><path d="M23 28q9 9 18 0" stroke="#2B211C" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="20" cy="27" r="3" fill="var(--rose)" opacity=".8"/><circle cx="44" cy="27" r="3" fill="var(--rose)" opacity=".8"/><path d="M14 78V60a18 18 0 0 1 36 0v18z" fill="var(--accent)"/></svg>
       <svg viewBox="0 0 64 80" class="pp p3"><circle cx="32" cy="24" r="18" fill="var(--pop)"/><path d="M25 20.5q0-2.5 2.5-2.5t2.5 2.5" stroke="#2B211C" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M34 20.5q0-2.5 2.5-2.5t2.5 2.5" stroke="#2B211C" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M24 28q8 8 16 0" stroke="#2B211C" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="20" cy="27" r="3" fill="var(--rose)" opacity=".8"/><circle cx="44" cy="27" r="3" fill="var(--rose)" opacity=".8"/><path d="M14 78V60a18 18 0 0 1 36 0v18z" fill="var(--pop)"/></svg>
     </div>
     <div class="wl-hello" id="wl-hello"></div>
@@ -505,7 +509,7 @@ main{padding:0 18px 128px}
   <header class="top">
     <div class="brandbar">
       <div class="mark">B</div>
-      <div class="brandname">Badass <i>Social Worker</i></div>
+      <button class="brandname" id="brandbtn" aria-haspopup="dialog">Badass <i>Social Worker</i><span class="cv">▾</span></button>
       <button class="today" id="today" type="button"></button>
       <button class="iconbtn" id="btn-settings" aria-label="Réglages et sauvegarde" title="Réglages et sauvegarde">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.35.4.64.73.83.3.17.63.26.97.26H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -634,7 +638,14 @@ var T={
  x_value:["Contenu ou lien","Content or link"], x_value_ph:["Un texte, ou une adresse https://…","Some text, or an https:// address"],
  no_extra:["Rien pour l'instant. Utile pour un lien, un identifiant de dossier, une info qui n'entre nulle part ailleurs.","Nothing yet. Handy for a link, a case number, anything that fits nowhere else."],
  av_pick:["Choisir un avatar","Pick an avatar"], av_photo:["Ou une photo","Or a photo"],
- rub_edit:["Modifier","Edit"], rub_name:["Nom","Name"],
+ rub_edit:["Modifier","Edit"], done_edit:["Terminé","Done"], rub_new:["Ajouter","Add"],
+ rub_del:["Supprimer %1","Delete %1"], rub_name:["Nom","Name"],
+ mn_title:["Le menu","Menu"], mn_home:["Page d'accueil","Welcome page"], mn_home_s:["Une citation pour souffler","A quote to catch your breath"],
+ mn_user:["Mon profil","My profile"], mn_user_s:["Votre prénom et votre avatar","Your first name and avatar"],
+ mn_cal_s:["Voir le mois","See the month"], mn_set_s:["Langue, apparence, sauvegarde","Language, appearance, backup"],
+ u_title:["Mon profil","My profile"], u_name:["Votre prénom","Your first name"], u_name_ph:["Il s'affiche sur la page d'accueil.","Shown on the welcome page."],
+ u_av:["Votre avatar","Your avatar"], u_saved:["Profil enregistré","Profile saved"],
+ wl_hello_named:["Hey %1, badass.","Hey %1, badass."],
  rub_add_type:["Ajouter un type de rencontre","Add a kind of meeting"], rub_type_ph:["Visite médiatisée, réunion d'équipe…","Supervised visit, team meeting…"],
  rub_add_pres:["Ajouter une personne","Add a person"], rub_pres_ph:["Éducatrice, grand-mère, avocat…","Support worker, grandmother, lawyer…"], th_auto:["Automatique","Automatic"], th_light:["Clair","Light"], th_dark:["Sombre","Dark"],
  st_where:["Où sont les données","Where the data lives"],
@@ -872,6 +883,18 @@ function eyesOpen(){return '<circle cx="19" cy="23" r="2" fill="'+INK+'"/><circl
 function eyesHappy(){return '<path d="M16.6 23.4q2.4-3 4.8 0M26.6 23.4q2.4-3 4.8 0" stroke="'+INK+'" stroke-width="2" fill="none" stroke-linecap="round"/>';}
 function smile(){return '<path d="M18 29q6 5.5 12 0" stroke="'+INK+'" stroke-width="2.2" fill="none" stroke-linecap="round"/>';}
 function cheeks(){return '<circle cx="14.5" cy="28" r="2.8" fill="'+AVC.rose+'" opacity=".75"/><circle cx="33.5" cy="28" r="2.8" fill="'+AVC.rose+'" opacity=".75"/>';}
+function featuresAt(cx,cy,sc,happy){
+  return '<g transform="translate('+(cx-24*sc).toFixed(2)+','+(cy-25*sc).toFixed(2)+') scale('+sc+')">'
+    +(happy?eyesHappy():eyesOpen())+smile()+cheeks()+'</g>';
+}
+function starPath(cx,cy,ro,ri){
+  var d="";
+  for(var i=0;i<10;i++){
+    var a=-Math.PI/2+i*Math.PI/5, r=(i%2?ri:ro);
+    d+=(i?"L":"M")+(cx+r*Math.cos(a)).toFixed(2)+" "+(cy+r*Math.sin(a)).toFixed(2);
+  }
+  return d+"Z";
+}
 function face(color,back,front,happy,mid){
   return '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">'+(back||"")
     +'<circle cx="24" cy="25" r="15" fill="'+color+'"/>'+(mid||"")
@@ -889,8 +912,14 @@ var AVATARS=[
  {id:"panda",   f:function(){return face("#FFFFFF",'<circle cx="12" cy="13" r="6.5" fill="'+INK+'"/><circle cx="36" cy="13" r="6.5" fill="'+INK+'"/>',"",false,'<ellipse cx="18.5" cy="23" rx="5" ry="5.6" fill="'+INK+'"/><ellipse cx="29.5" cy="23" rx="5" ry="5.6" fill="'+INK+'"/><circle cx="18.5" cy="23" r="2" fill="#FFFFFF"/><circle cx="29.5" cy="23" r="2" fill="#FFFFFF"/>');}},
  {id:"oiseau",  f:function(){return face(AVC.ciel,'<path d="M4 22q8-9 14-2z" fill="'+AVC.ciel+'"/><path d="M24 6q4-4 7 1z" fill="'+AVC.ocre+'"/>','<path d="M36 25l7 3-7 3z" fill="'+AVC.ocre+'"/>',true);}},
  {id:"papillon",f:function(){return face(AVC.prune,'<circle cx="9" cy="18" r="8" fill="'+AVC.rose+'"/><circle cx="39" cy="18" r="8" fill="'+AVC.rose+'"/><circle cx="10" cy="33" r="6.5" fill="'+AVC.ocre+'"/><circle cx="38" cy="33" r="6.5" fill="'+AVC.ocre+'"/>','<path d="M20 9 17 3M28 9l3-6" stroke="'+INK+'" stroke-width="1.6" stroke-linecap="round"/>',true);}},
- {id:"etoile",  f:function(){return face(AVC.ocre,'<path d="M24 1l5.5 12.5L43 15l-9.5 9 2.5 13.5L24 31l-12 6.5L14.5 24 5 15l13.5-1.5z" fill="'+AVC.ocre+'"/>',"",true);}},
- {id:"coeur",   f:function(){return face(AVC.rose,'<path d="M24 44S5 31 5 18a10 10 0 0 1 19-4 10 10 0 0 1 19 4c0 13-19 26-19 26z" fill="'+AVC.rose+'"/>',"",true);}},
+ {id:"etoile",  f:function(){
+   return '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">'
+     +'<path d="'+starPath(24,25,21,9.5)+'" fill="'+AVC.ocre+'" stroke="'+AVC.ocre+'" stroke-width="6" stroke-linejoin="round"/>'
+     +featuresAt(24,25.5,.72,true)+'</svg>';}},
+ {id:"coeur",   f:function(){
+   return '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">'
+     +'<path d="M24 45C24 45 3 31.5 3 17.5A11.5 11.5 0 0 1 24 11a11.5 11.5 0 0 1 21 6.5C45 31.5 24 45 24 45z" fill="'+AVC.rose+'"/>'
+     +featuresAt(24,23,.78,true)+'</svg>';}},
  {id:"nuage",   f:function(){return face("#BBD4E2",'<circle cx="11" cy="30" r="9" fill="#BBD4E2"/><circle cx="37" cy="30" r="9" fill="#BBD4E2"/><rect x="10" y="28" width="28" height="11" rx="5.5" fill="#BBD4E2"/>',"",true);}},
  {id:"cactus",  f:function(){return face(AVC.olive,'<rect x="1" y="16" width="9" height="20" rx="4.5" fill="'+AVC.olive+'"/><rect x="38" y="12" width="9" height="24" rx="4.5" fill="'+AVC.olive+'"/>','<circle cx="41" cy="9" r="4" fill="'+AVC.rose+'"/><circle cx="5.5" cy="13" r="3.2" fill="'+AVC.rose+'"/>',true);}},
  {id:"copine",  f:function(){return face(AVC.menthe,'<path d="M12 46v-4a12 12 0 0 1 24 0v4z" fill="'+AVC.prune+'"/><ellipse cx="24" cy="16" rx="16" ry="12" fill="'+INK+'" opacity=".85"/><circle cx="9" cy="24" r="6" fill="'+INK+'" opacity=".85"/><circle cx="39" cy="24" r="6" fill="'+INK+'" opacity=".85"/>','<circle cx="39" cy="12" r="3.5" fill="'+AVC.rose+'"/>');}},
@@ -1309,10 +1338,12 @@ function entryForm(kid,when){
         var list=typeList();
         if(list.indexOf(type)<0) type=list[0]||"";
         p.querySelector("#f-type").innerHTML=list.map(function(k){
-          return '<span class="chip"><button type="button" aria-pressed="'+(k===type)+'" data-t="'+esc(k)+'">'+esc(typeLabel(k,true))+'</button>'
-            +(editT?'<button type="button" class="rm" data-rmt="'+esc(k)+'" aria-label="'+esc(t("del"))+'">×</button>':'')+'</span>';}).join("")
-          +'<button type="button" class="plus" id="f-typeadd">+</button>'
-          +'<button type="button" class="gear" id="f-typeedit" aria-pressed="'+editT+'">'+esc(t("rub_edit"))+'</button>';
+          return editT
+            ? '<span class="chip editing"><span class="lb">'+esc(typeLabel(k,true))+'</span>'
+              +'<button type="button" class="rm" data-rmt="'+esc(k)+'" aria-label="'+esc(t("rub_del",typeLabel(k,true)))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>'
+            : '<span class="chip"><button type="button" aria-pressed="'+(k===type)+'" data-t="'+esc(k)+'">'+esc(typeLabel(k,true))+'</button></span>';}).join("")
+          +(editT?'':'<button type="button" class="plus" id="f-typeadd">+ '+esc(t("rub_new"))+'</button>')
+          +'<button type="button" class="gear" id="f-typeedit" aria-pressed="'+editT+'">'+(editT?'':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>')+esc(editT?t("done_edit"):t("rub_edit"))+'</button>';
       }
       paintTypes();
       p.querySelector("#f-type").addEventListener("click",function(e){
@@ -1345,10 +1376,12 @@ function entryForm(kid,when){
         var b=e.target.closest("[data-rm]"); if(!b) return; presents.splice(+b.dataset.rm,1); paintTokens();});
       function paintSugg(){
         p.querySelector("#f-sugg").innerHTML=suggestPresents().map(function(sg){
-          return '<span class="chip"><button type="button" data-s="'+esc(sg)+'">'+esc(sg)+'</button>'
-            +(editP?'<button type="button" class="rm" data-rmp="'+esc(sg)+'" aria-label="'+esc(t("del"))+'">×</button>':'')+'</span>';}).join("")
-          +'<button type="button" class="plus" id="f-suggadd" style="border-radius:999px;padding:5px 11px;font-size:12px">+</button>'
-          +'<button type="button" id="f-suggedit" aria-pressed="'+editP+'" style="border-radius:999px;padding:5px 11px;font-size:12px;background:var(--surface-2);color:'+(editP?"var(--ink)":"var(--muted)")+'">'+esc(t("rub_edit"))+'</button>';
+          return editP
+            ? '<span class="chip editing"><span class="lb">'+esc(sg)+'</span>'
+              +'<button type="button" class="rm" data-rmp="'+esc(sg)+'" aria-label="'+esc(t("rub_del",sg))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>'
+            : '<span class="chip"><button type="button" data-s="'+esc(sg)+'">'+esc(sg)+'</button></span>';}).join("")
+          +(editP?'':'<button type="button" class="plus" id="f-suggadd">+ '+esc(t("rub_new"))+'</button>')
+          +'<button type="button" class="gear" id="f-suggedit" aria-pressed="'+editP+'">'+(editP?'':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>')+esc(editP?t("done_edit"):t("rub_edit"))+'</button>';
       }
       paintSugg();
       p.querySelector("#f-sugg").addEventListener("click",function(e){
@@ -1625,6 +1658,14 @@ document.addEventListener("click",function(e){
   if(hit("#addtask")){taskForm();return;}
   if(hit("#today")){openCalendar();return;}
   if(hit("#btn-settings")){settingsPanel();return;}
+  if(hit("#brandbtn")){menuPanel();return;}
+  b=hit("[data-menu]"); if(b){
+    var m=b.dataset.menu; closePanel();
+    if(m==="home"){closeAll();showWelcome();}
+    else if(m==="user") userPanel();
+    else if(m==="cal") openCalendar();
+    else settingsPanel();
+    return;}
   if(hit("#wipe-demo")){
     confirmPanel(t("demo_confirm"),t("demo_btn"),function(){
       var ids=demoKids().map(function(c){return c.id;});
@@ -1699,6 +1740,45 @@ document.addEventListener("click",function(e){
     render();window.scrollTo({top:0,behavior:"smooth"});return;}
 });
 
+/* ================= menu ================= */
+function menuRow(id,icon,label,sub){
+  return '<button class="menurow" data-menu="'+id+'">'+icon
+    +'<span>'+esc(label)+(sub?'<span class="menusub">'+esc(sub)+'</span>':'')+'</span><span class="ar">›</span></button>';
+}
+function menuPanel(){
+  var u=state.user||{};
+  var av=u.av&&avatarSVG(u.av)?'<span class="mav">'+avatarSVG(u.av)+'</span>'
+    :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>';
+  var body=
+    menuRow("home",'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>',t("mn_home"),t("mn_home_s"))
+    +menuRow("user",av,u.name?u.name:t("mn_user"),t("mn_user_s"))
+    +menuRow("cal",'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',t("cal_title"),t("mn_cal_s"))
+    +menuRow("settings",'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.35.4.64.73.83.3.17.63.26.97.26H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',t("settings"),t("mn_set_s"));
+  openPanel({title:t("mn_title"),body:body,focus:false});
+}
+function userPanel(){
+  var u=state.user||{};
+  var body=field(t("u_name"),'<input type="text" id="u-name" value="'+esc(u.name||"")+'">',t("u_name_ph"))
+    +'<div class="field"><label>'+esc(t("u_av"))+'</label><div class="avgrid" id="u-avgrid">'
+    +AVATARS.map(function(a){return '<button type="button" data-av="'+a.id+'" aria-pressed="'+(u.av===a.id)+'">'+a.f()+'</button>';}).join("")
+    +'</div></div>';
+  openPanel({title:t("u_title"),body:body,
+    foot:'<button class="btn ghost" data-close>'+esc(t("cancel"))+'</button><button class="btn" id="u-save">'+esc(t("save"))+'</button>',
+    onMount:function(p){
+      var av=u.av||"";
+      p.querySelector("#u-avgrid").addEventListener("click",function(e){
+        var b=e.target.closest("[data-av]"); if(!b) return;
+        av=(av===b.dataset.av)?"":b.dataset.av;
+        p.querySelectorAll("#u-avgrid [data-av]").forEach(function(x){x.setAttribute("aria-pressed",String(x.dataset.av===av));});
+      });
+      p.querySelector("#u-save").addEventListener("click",function(){
+        state.user={name:p.querySelector("#u-name").value.trim(),av:av};
+        save();closePanel();toast(t("u_saved"));
+        if(!$("#welcome").hidden) showWelcome();
+      });
+    }});
+}
+
 /* ================= page d'accueil ================= */
 var QUOTES={
  fr:["Tu fais un travail que peu de gens <em>osent</em> faire. Ça compte.",
@@ -1733,7 +1813,11 @@ function showQuote(){
   qIdx=i; $("#wl-quote").innerHTML=list[i];
 }
 function showWelcome(){
-  $("#wl-hello").textContent=t("wl_hello");
+  var u=state.user||{};
+  $("#wl-hello").textContent=u.name?t("wl_hello_named",u.name):t("wl_hello");
+  var me=$("#wl-me");
+  if(u.av&&avatarSVG(u.av)){me.innerHTML=avatarSVG(u.av);me.hidden=false;$("#wl-p2").hidden=true;}
+  else{me.hidden=true;$("#wl-p2").hidden=false;}
   $("#wl-enter").textContent=t("wl_enter");
   $("#wl-other").textContent=t("wl_other");
   showQuote();
@@ -1802,6 +1886,16 @@ button.task:hover{background:var(--surface-2)}
   text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
 @media (min-width:560px){.app{min-height:100vh}}
 
+/* --- menu --- */
+.menurow{display:flex;align-items:center;gap:13px;width:100%;padding:15px 16px;border-radius:var(--r);
+  background:var(--surface);margin-bottom:9px;font-size:15px;font-weight:600;color:var(--ink);text-align:left}
+.menurow:hover{background:var(--surface-2)}
+.menurow > svg{width:21px;height:21px;color:var(--accent);flex:none}
+.menurow .ar{margin-left:auto;color:var(--muted);font-size:16px}
+.menurow .mav{width:30px;height:30px;border-radius:50%;background:var(--surface-2);padding:2px;flex:none;overflow:hidden}
+.menurow .mav svg{width:100%;height:100%;display:block}
+.menusub{font-size:12.5px;font-weight:400;color:var(--muted);display:block;margin-top:2px}
+
 /* --- page d'accueil --- */
 .welcome{position:fixed;inset:0;z-index:80;background:var(--ground);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
 .wl-inner{max-width:400px;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
@@ -1810,6 +1904,8 @@ button.task:hover{background:var(--surface-2)}
 .wl-people .p1{animation-delay:0s;transform-origin:bottom}
 .wl-people .p2{width:100px;height:125px;animation-delay:.5s}
 .wl-people .p3{animation-delay:1s}
+.wl-people .me{width:100px;height:100px;border-radius:50%;background:var(--surface-2);padding:6px;animation-delay:.5s}
+.wl-people .me svg{width:100%;height:100%;display:block}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @media (prefers-reduced-motion:reduce){.wl-people .pp{animation:none}}
 .wl-hello{font-family:var(--display);font-size:30px;font-weight:600;color:var(--accent);line-height:1.1}
@@ -1832,13 +1928,19 @@ button.task:hover{background:var(--surface-2)}
 .kidav.draw,.face.draw,.av.draw,.kidav.draw{background:var(--surface-2);padding:2px;overflow:hidden}
 .draw svg{width:100%;height:100%;display:block}
 .kidav.em,.face.em,.av.em{font-size:1.45em;line-height:1}
-.pick .chip{position:relative;display:inline-flex}
-.pick .chip .rm{position:absolute;top:-5px;right:-4px;width:18px;height:18px;border-radius:50%;background:var(--alert);color:#fff;font-size:12px;line-height:1;display:grid;place-items:center;border:2px solid var(--ground)}
-.pick .plus{border:1.5px dashed var(--line-strong);color:var(--accent);background:transparent;font-weight:700}
-.pick .gear{background:var(--surface-2);color:var(--muted)}
-.pick .gear[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
-.sugg .chip{position:relative;display:inline-flex}
-.sugg .chip .rm{position:absolute;top:-6px;right:-5px;width:17px;height:17px;border-radius:50%;background:var(--alert);color:#fff;font-size:11px;line-height:1;display:grid;place-items:center;border:2px solid var(--ground)}
+.pick .chip,.sugg .chip{display:inline-flex}
+.chip.editing{align-items:center;gap:2px;padding:0 4px 0 14px;border-radius:999px;
+  background:var(--alert-soft);color:var(--alert);font-size:13px;font-weight:600}
+.sugg .chip.editing{font-size:12px;padding-left:12px}
+.chip.editing .lb{padding:6px 0}
+.chip.editing .rm{width:26px;height:26px;flex:none;border-radius:50%;background:var(--alert);color:#fff;
+  display:grid;place-items:center}
+.chip.editing .rm svg{width:12px;height:12px;display:block}
+.chip.editing .rm:active{transform:scale(.9)}
+.pick .plus,.sugg .plus{border:1.5px dashed var(--accent);color:var(--accent);background:transparent;font-weight:700}
+.pick .gear,.sugg .gear{background:var(--surface-2);color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+.pick .gear[aria-pressed="true"],.sugg .gear[aria-pressed="true"]{background:var(--alert);color:#fff}
+.gear svg{width:13px;height:13px}
 .extra{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.45}
 .extra:last-child{border-bottom:0}
 .extra .xl{font-weight:700;flex:none;max-width:40%}

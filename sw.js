@@ -3,7 +3,7 @@
    Il ne touche jamais aux données du carnet — celles-ci vivent dans
    localStorage, sur l'appareil, et ne transitent par aucun cache réseau. */
 
-const VERSION = "badass-v6";
+const VERSION = "badass-v7";
 const SHELL = [
   "./",
   "./index.html",
