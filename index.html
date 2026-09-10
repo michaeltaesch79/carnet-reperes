@@ -488,6 +488,19 @@ main{padding:0 18px 128px}
 :root[data-theme="dark"] .h7{background:#3D2E24;color:#D9B692}
 </style>
 
+<div class="welcome" id="welcome" hidden>
+  <div class="wl-inner">
+    <div class="wl-people" aria-hidden="true">
+      <svg viewBox="0 0 64 80" class="pp p1"><circle cx="32" cy="24" r="18" fill="var(--warn)"/><circle cx="25" cy="21" r="2.2" fill="#2B211C"/><circle cx="39" cy="21" r="2.2" fill="#2B211C"/><path d="M24 29q8 7 16 0" stroke="#2B211C" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="20" cy="27" r="3" fill="var(--rose)" opacity=".8"/><circle cx="44" cy="27" r="3" fill="var(--rose)" opacity=".8"/><path d="M14 78V60a18 18 0 0 1 36 0v18z" fill="var(--warn)"/></svg>
+      <svg viewBox="0 0 64 80" class="pp p2"><circle cx="32" cy="24" r="18" fill="var(--accent)"/><circle cx="25" cy="21" r="2.2" fill="#2B211C"/><circle cx="39" cy="21" r="2.2" fill="#2B211C"/><path d="M23 28q9 9 18 0" stroke="#2B211C" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="20" cy="27" r="3" fill="var(--rose)" opacity=".8"/><circle cx="44" cy="27" r="3" fill="var(--rose)" opacity=".8"/><path d="M14 78V60a18 18 0 0 1 36 0v18z" fill="var(--accent)"/></svg>
+      <svg viewBox="0 0 64 80" class="pp p3"><circle cx="32" cy="24" r="18" fill="var(--pop)"/><path d="M25 20.5q0-2.5 2.5-2.5t2.5 2.5" stroke="#2B211C" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M34 20.5q0-2.5 2.5-2.5t2.5 2.5" stroke="#2B211C" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M24 28q8 8 16 0" stroke="#2B211C" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="20" cy="27" r="3" fill="var(--rose)" opacity=".8"/><circle cx="44" cy="27" r="3" fill="var(--rose)" opacity=".8"/><path d="M14 78V60a18 18 0 0 1 36 0v18z" fill="var(--pop)"/></svg>
+    </div>
+    <div class="wl-hello" id="wl-hello"></div>
+    <p class="wl-quote" id="wl-quote"></p>
+    <button class="btn" id="wl-enter"></button>
+    <button class="wl-other" id="wl-other"></button>
+  </div>
+</div>
 <div class="app">
   <header class="top">
     <div class="brandbar">
@@ -501,9 +514,9 @@ main{padding:0 18px 128px}
     <div class="rail" id="rail"></div>
     
     <div class="seg" role="tablist" id="seg">
-      <button role="tab" data-view="todo" aria-selected="true"><span id="lbl-todo"></span> <span class="count" id="c-todo"></span></button>
-      <button role="tab" data-view="cr" aria-selected="false"><span id="lbl-cr"></span> <span class="count" id="c-cr"></span></button>
-      <button role="tab" data-view="search" aria-selected="false"><span id="lbl-search"></span></button>
+      <button role="tab" data-view="todo" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg><span id="lbl-todo"></span> <span class="count" id="c-todo"></span></button>
+      <button role="tab" data-view="cr" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></svg><span id="lbl-cr"></span> <span class="count" id="c-cr"></span></button>
+      <button role="tab" data-view="search" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span id="lbl-search"></span></button>
     </div>
   </header>
   <main id="main"></main>
@@ -523,7 +536,7 @@ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2
 
 /* ================= langues ================= */
 var T={
- tab_todo:["À faire","To do"], tab_cr:["Comptes rendus","Reports"], tab_search:["Rechercher","Search"],
+ tab_todo:["To-do","To-do"], tab_cr:["Comptes rendus","Reports"], tab_search:["Rechercher","Search"],
  fab_new:["Nouveau compte rendu","New report"], settings:["Réglages et sauvegarde","Settings and backup"],
  add:["Ajouter","Add"], addshort:["+ ajouter","+ add"], cancel:["Annuler","Cancel"], save:["Enregistrer","Save"],
  del:["Supprimer","Delete"], close:["Fermer","Close"], confirm:["Confirmer","Confirm"], edit:["Modifier la fiche","Edit profile"],
@@ -536,7 +549,7 @@ var T={
                "The sample children and their records will be deleted. Anything you entered yourself is kept."],
  demo_done:["Exemples effacés","Samples removed"],
 
- day_of:["Journée du %1","%1"], addtask:["+ Ajouter une tâche","+ Add a task"],
+ day_of:["Journée du %1","%1"], addtask:["+ Ajouter une to-do","+ Add a to-do"],
  g_late:["En retard","Overdue"], g_today:["Aujourd'hui","Today"], g_week:["Cette semaine","This week"],
  g_later:["Plus tard","Later"], g_nodue:["Sans échéance","No due date"], g_done:["Fait récemment","Recently done"],
  due_late:["en retard de %1 j","%1 days late"], due_today:["aujourd'hui","today"], due_tomorrow:["demain","tomorrow"],
@@ -544,21 +557,21 @@ var T={
  yrs:["%1 ans","%1 yrs"],
 
  empty_todo_h:["Rien en attente","Nothing pending"],
- empty_todo_p:["Ajoutez une tâche, ou notez un compte rendu depuis le bouton en bas.","Add a task, or write a report with the button below."],
+ empty_todo_p:["Ajoutez une to-do, ou notez un compte rendu depuis le bouton en bas.","Add a to-do, or write a report with the button below."],
  empty_cr_h:["Aucun compte rendu","No reports yet"],
  empty_cr_p:["Le bouton en bas ouvre une saisie en une minute : qui était là, ce qui s'est passé, ce que vous en retenez.",
              "The button below opens a one-minute form: who was there, what happened, what you take from it."],
  empty_journal_h:["Journal vide","Empty journal"],
  empty_journal_p:["Notez ce qui vient de se passer : le bouton « + Compte rendu » est en bas.","Record what just happened with the “+ Report” button below."],
- empty_tasks_h:["Rien à faire","Nothing to do"], empty_tasks_p:["Aucune tâche rattachée à %1.","No task linked to %1."],
+ empty_tasks_h:["Rien à faire","Nothing to do"], empty_tasks_p:["Aucune to-do rattachée à %1.","No to-do linked to %1."],
  search_h:["Rechercher dans le carnet","Search the notebook"],
- search_p:["Cherche dans les prénoms, les antécédents, le texte des comptes rendus, les personnes présentes et les tâches.",
+ search_p:["Cherche dans les prénoms, les antécédents, le texte des comptes rendus, les personnes présentes et les to-do.",
            "Searches first names, history, report text, people present and tasks."],
  search_ph:["Un prénom, un mot du récit, une personne présente…","A first name, a word from a report, someone present…"],
  noresult_h:["Aucun résultat","No results"], noresult_p:["Rien ne correspond à « %1 » dans le carnet.","Nothing matches “%1” in the notebook."],
- r_children:["Enfants","Children"], r_tasks:["Tâches","Tasks"], r_reports:["Comptes rendus","Reports"],
+ r_children:["Enfants","Children"], r_tasks:["To-do","To-do"], r_reports:["Comptes rendus","Reports"],
 
- tab_profil:["Profil","Profile"], tab_journal:["Journal","Journal"], tab_taches:["À faire","To do"],
+ tab_profil:["Profil","Profile"], tab_journal:["Journal","Journal"], tab_taches:["To-do","To-do"],
  s_situation:["Situation","Situation"], s_ant:["Antécédents","History"], s_how:["Comment il/elle est","What they're like"],
  s_people:["Personnes ressources","Key people"],
  f_measure:["Mesure","Order"], f_since:["Depuis","Since"], f_home:["Lieu de vie","Living arrangement"],
@@ -566,10 +579,10 @@ var T={
  how_hint:["Ajoutez ce qui aide à l'aborder : ce qui l'apaise, ce qui le bloque.","Add what helps you approach them: what calms them, what shuts them down."],
  no_contacts:["Aucun contact enregistré.","No contacts saved."],
  del_kid:["Supprimer %1 du carnet","Remove %1 from the notebook"],
- del_kid_q:["Supprimer %1 ainsi que ses %2 compte(s) rendu(s) et ses tâches ? C'est définitif.",
+ del_kid_q:["Supprimer %1 ainsi que ses %2 compte(s) rendu(s) et ses to-do ? C'est définitif.",
             "Delete %1 along with their %2 report(s) and tasks? This cannot be undone."],
  kid_deleted:["Fiche supprimée","Profile deleted"],
- btn_report:["+ Compte rendu","+ Report"], btn_task:["+ Tâche","+ Task"],
+ btn_report:["+ Compte rendu","+ Report"], btn_task:["+ To-do","+ To-do"],
 
  new_child:["Nouvel enfant","New child"], first:["Prénom","First name"], last:["Nom","Last name"],
  dob:["Date de naissance","Date of birth"], since:["Depuis le","Start date"],
@@ -592,16 +605,16 @@ var T={
  obs:["Ce que j'observe","What I observe"],
  obs_ph:["Attitude, changements, ressenti professionnel — séparé des faits.","Attitude, changes, professional impression — kept apart from the facts."],
  next:["À faire ensuite","What comes next"], next_ph:["La suite à donner.","The follow-up."],
- mk_task:["En faire une tâche à échéance","Turn it into a task due"],
+ mk_task:["En faire une to-do à échéance","Turn it into a to-do due"],
  present_lbl:["présents","present"],
  pick_child:["Choisissez un enfant","Pick a child"], need_story:["Notez au moins ce qui s'est passé","Write at least what happened"],
  report_saved:["Compte rendu enregistré","Report saved"],
  del_report_q:["Supprimer ce compte rendu ? C'est définitif.","Delete this report? This cannot be undone."],
 
- new_task:["Nouvelle tâche","New task"], task_what:["Quoi","What"],
+ new_task:["Nouvelle to-do","New to-do"], edit_task:["Modifier la to-do","Edit to-do"], task_what:["Quoi","What"],
  task_ph:["Appeler, écrire, préparer…","Call, write, prepare…"], task_for:["Pour qui","For whom"],
  no_child:["— aucun enfant —","— no child —"], due:["Échéance","Due"], is_priority:["Prioritaire","Priority"],
- need_task:["Écrivez la tâche","Write the task"], task_added:["Tâche ajoutée","Task added"], task_deleted:["Tâche supprimée","Task deleted"],
+ need_task:["Écrivez la to-do","Write the to-do"], task_added:["To-do ajoutée","To-do added"], task_saved:["To-do modifiée","To-do updated"], task_deleted:["To-do supprimée","To-do deleted"],
  add_first:["Ajoutez d'abord un enfant","Add a child first"],
 
  add_ant:["Ajouter un antécédent","Add to the history"],
@@ -614,21 +627,27 @@ var T={
  c_rel_ph:["assistante familiale","foster carer"], c_tel:["Téléphone","Phone"], empty_field:["Champ vide","Empty field"],
 
  st_lang:["Langue / Language","Language / Langue"],
- st_theme:["Apparence","Appearance"], th_auto:["Automatique","Automatic"], th_light:["Clair","Light"], th_dark:["Sombre","Dark"],
+ st_theme:["Apparence","Appearance"],
+ wl_hello:["Hey, badass.","Hey, badass."], wl_enter:["Entrer dans le carnet","Open the notebook"], wl_other:["Une autre","Another one"],
+ s_extra:["Notes et liens","Notes and links"], add_extra:["Ajouter une note ou un lien","Add a note or a link"],
+ x_label:["Titre","Title"], x_label_ph:["Dossier partagé, numéro de dossier, à retenir…","Shared folder, case number, keep in mind…"],
+ x_value:["Contenu ou lien","Content or link"], x_value_ph:["Un texte, ou une adresse https://…","Some text, or an https:// address"],
+ no_extra:["Rien pour l'instant. Utile pour un lien, un identifiant de dossier, une info qui n'entre nulle part ailleurs.","Nothing yet. Handy for a link, a case number, anything that fits nowhere else."],
+ av_pick:["Choisir un avatar","Pick an avatar"], av_photo:["Ou une photo","Or a photo"], th_auto:["Automatique","Automatic"], th_light:["Clair","Light"], th_dark:["Sombre","Dark"],
  st_where:["Où sont les données","Where the data lives"],
  st_where1:["Tout ce que vous écrivez est enregistré <b>dans ce navigateur, sur cet appareil</b>. Rien n'est envoyé sur un serveur, et personne d'autre ne peut le lire depuis le lien.",
             "Everything you write is stored <b>in this browser, on this device</b>. Nothing is sent to a server, and nobody else can read it from the link."],
  st_where2:["Revers de la médaille : effacer l'historique du navigateur ou changer de téléphone efface le carnet. Exportez une sauvegarde régulièrement.",
             "The flip side: clearing your browser history or switching phones wipes the notebook. Export a backup regularly."],
  st_content:["Contenu du carnet","Notebook contents"], st_kids:["Enfants","Children"], st_reports:["Comptes rendus","Reports"],
- st_tasks:["Tâches","Tasks"], st_size:["Taille","Size"],
+ st_tasks:["To-do","To-do"], st_size:["Taille","Size"],
  st_backup:["Sauvegarde","Backup"], st_export:["Exporter une sauvegarde (.json)","Export a backup (.json)"],
  st_restore:["Restaurer une sauvegarde","Restore a backup"],
  st_paste:["Ou coller le texte d'une sauvegarde","Or paste the text of a backup"],
  st_paste_ph:["Collez ici le contenu du fichier .json","Paste the contents of the .json file here"],
  st_paste_btn:["Restaurer depuis le texte","Restore from text"],
  st_reset:["Repartir de zéro","Start over"], st_wipe:["Effacer tout le carnet","Erase the whole notebook"],
- st_wipe_q:["Tout le carnet sera effacé de cet appareil : enfants, comptes rendus et tâches. C'est définitif.",
+ st_wipe_q:["Tout le carnet sera effacé de cet appareil : enfants, comptes rendus et to-do. C'est définitif.",
             "The whole notebook will be erased from this device: children, reports and tasks. This cannot be undone."],
  st_wiped:["Carnet vidé","Notebook emptied"],
  bk_saved:["Sauvegarde enregistrée","Backup saved"], bk_copied:["Sauvegarde copiée — collez-la dans un fichier","Backup copied — paste it into a file"],
@@ -638,8 +657,8 @@ var T={
 
  cal_title:["Calendrier","Calendar"], cal_today:["Aujourd'hui","Today"],
  cal_nothing:["Rien ce jour-là.","Nothing on this day."],
- cal_addtask:["+ Tâche ce jour-là","+ Task that day"], cal_addreport:["+ Compte rendu ce jour-là","+ Report that day"],
- cal_legend:["Point plein : tâche · point creux : compte rendu","Filled dot: task · hollow dot: report"],
+ cal_addtask:["+ To-do ce jour-là","+ To-do that day"], cal_addreport:["+ Compte rendu ce jour-là","+ Report that day"],
+ cal_legend:["Point plein : to-do · point creux : compte rendu","Filled dot: to-do · hollow dot: report"],
  remind_at:["Me le rappeler à","Remind me at"],
  remind_hint:["Le rappel s'affiche à l'ouverture du carnet, et en notification si le téléphone l'autorise.",
               "The reminder shows when you open the notebook, and as a notification if your phone allows it."],
@@ -834,8 +853,10 @@ function tasksOf(id){return state.tasks.filter(function(t2){return t2.childId===
 function lastSeen(id){var e=entriesOf(id);return e.length?e[0].date:null;}
 function openTasks(id){return state.tasks.filter(function(t2){return t2.childId===id&&!t2.done;}).length;}
 function demoKids(){return state.children.filter(function(c){return c.demo;});}
+var AVATARS=["🌸","🌻","🌷","🌼","🌺","🌹","🍀","🌵","🐱","🐶","🐰","🦊","🐻","🐼","🐨","🦁","🐸","🐥","🦋","🐢","🐙","🦄","👧","🧒","👦","🧚","🦸","🧜","🤖","👽","⭐️","🌈","☀️","🍓","🎈","🎀"];
 function avatar(c,cls){
   if(c.photo) return '<span class="'+cls+'"><img src="'+esc(c.photo)+'" alt=""></span>';
+  if(c.emoji) return '<span class="'+cls+' em h'+(c.hue||0)+'">'+esc(c.emoji)+'</span>';
   return '<span class="'+cls+' h'+(c.hue||0)+'">'+esc(initials(c))+'</span>';
 }
 function kidChip(id){
@@ -915,6 +936,7 @@ function taskHTML(x){
    +(x.urgent&&!x.done?'<span class="tag alert">'+esc(t("priority"))+'</span>':'')
    +(x.childId?kidChip(x.childId):"")
    +'</div></div>'
+   +'<button class="rowdel rowedit" data-edittask="'+x.id+'" aria-label="'+esc(t("edit_task"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>'
    +'<button class="rowdel" data-deltask="'+x.id+'" aria-label="'+esc(t("del"))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></li>';
 }
 function group(title,items,cls){
@@ -990,7 +1012,8 @@ function renderSearch(){
   }
   var kids=state.children.filter(function(c){
     return (c.prenom+" "+c.nom+" "+(c.ecole||"")+" "+(c.referent||"")+" "+(c.portrait||"")
-      +" "+(c.antecedents||[]).map(function(a){return a.t;}).join(" ")).toLowerCase().indexOf(q)>=0;
+      +" "+(c.antecedents||[]).map(function(a){return a.t;}).join(" ")
+      +" "+(c.extras||[]).map(function(x){return x.l+" "+x.v;}).join(" ")).toLowerCase().indexOf(q)>=0;
   });
   var ents=state.entries.filter(function(e){
     return ((e.recit||"")+" "+(e.obs||"")+" "+(e.suite||"")+" "+(e.lieu||"")+" "+typeLabel(e.type)+" "+(e.presents||[]).join(" ")).toLowerCase().indexOf(q)>=0;
@@ -1100,6 +1123,14 @@ function paintKid(p,id){
           +'<button class="x" style="opacity:.5;margin-left:8px" data-delcontact="'+c.id+':'+k.id+'" aria-label="'+esc(t("del"))+'">×</button></div>';}).join("")
       :'<p style="font-size:13px;color:var(--muted)">'+esc(t("no_contacts"))+'</p>';
     h+='</div>';
+    h+='<div class="block"><div class="blockhead">'+esc(t("s_extra"))+'<button class="add" data-addextra="'+c.id+'">'+esc(t("addshort"))+'</button></div>';
+    h+=(c.extras&&c.extras.length)?c.extras.map(function(x){
+        var isUrl=/^https?:\/\//i.test(x.v||"");
+        return '<div class="extra"><span class="xl">'+esc(x.l)+'</span><span class="xv">'
+          +(isUrl?'<a href="'+esc(x.v)+'" target="_blank" rel="noopener">'+esc(x.v.replace(/^https?:\/\//i,""))+'</a>':esc(x.v))
+          +'</span><button class="x" style="opacity:.5" data-delextra="'+c.id+':'+x.id+'" aria-label="'+esc(t("del"))+'">×</button></div>';}).join("")
+      :'<p style="font-size:13px;color:var(--muted)">'+esc(t("no_extra"))+'</p>';
+    h+='</div>';
     h+='<button class="btn danger sm" data-delkid="'+c.id+'" style="width:100%;margin-top:6px">'+esc(t("del_kid",c.prenom))+'</button>';
   } else if(kidTab==="journal"){
     var es=entriesOf(c.id);
@@ -1118,8 +1149,8 @@ function refreshKidHead(p){
   p.querySelector(".kidname").textContent=c.prenom+" "+c.nom;
   p.querySelector(".kidsub").textContent=[age(c.dob),mesureLabel(c.mesure),c.lieu||""].filter(Boolean).join(" · ");
   var av=p.querySelector(".kidhead .kidav");
-  av.className="kidav"+(c.photo?"":" h"+(c.hue||0));
-  av.innerHTML=c.photo?'<img src="'+esc(c.photo)+'" alt="">':esc(initials(c));
+  av.className="kidav"+(c.photo?"":" h"+(c.hue||0))+(c.emoji&&!c.photo?" em":"");
+  av.innerHTML=c.photo?'<img src="'+esc(c.photo)+'" alt="">':esc(c.emoji||initials(c));
 }
 
 /* ================= formulaires ================= */
@@ -1140,9 +1171,12 @@ function childForm(existing){
   var body=
     '<div style="display:flex;gap:14px;align-items:center;margin-bottom:14px">'
     +'<label for="f-photo" style="cursor:pointer">'
-    +'<span id="prev" class="kidav '+(c.photo?"":"h"+(c.hue||0))+'">'+(c.photo?'<img src="'+esc(c.photo)+'" alt="">':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="width:22px;height:22px"><path d="M3 7h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.5"/></svg>')+'</span></label>'
+    +'<span id="prev" class="kidav '+(c.photo?"":"h"+(c.hue||0))+(c.emoji&&!c.photo?" em":"")+'">'+(c.photo?'<img src="'+esc(c.photo)+'" alt="">':(c.emoji?esc(c.emoji):'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="width:22px;height:22px"><path d="M3 7h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.5"/></svg>'))+'</span></label>'
     +'<input type="file" id="f-photo" accept="image/*" hidden>'
-    +'<div style="font-size:12.5px;color:var(--muted);line-height:1.45">'+esc(t("photo_opt"))+'<br>'+esc(t("photo_dev"))+'</div></div>'
+    +'<div style="font-size:12.5px;color:var(--muted);line-height:1.45"><b style="color:var(--ink)">'+esc(t("av_photo"))+'</b><br>'+esc(t("photo_opt"))+' '+esc(t("photo_dev"))+'</div></div>'
+    +'<div class="field"><label>'+esc(t("av_pick"))+'</label><div class="avgrid" id="f-avgrid">'
+    +AVATARS.map(function(e){return '<button type="button" data-av="'+e+'" aria-pressed="'+(c.emoji===e&&!c.photo)+'">'+e+'</button>';}).join("")
+    +'</div></div>'
     +'<div class="two">'+field(t("first"),'<input type="text" id="f-prenom" value="'+esc(c.prenom||"")+'">')
     +field(t("last"),'<input type="text" id="f-nom" value="'+esc(c.nom||"")+'">')+'</div>'
     +'<div class="two">'+field(t("dob"),'<input type="date" id="f-dob" value="'+esc(c.dob||"")+'">')
@@ -1155,7 +1189,14 @@ function childForm(existing){
   openPanel({title:existing?t("edit"):t("new_child"),body:body,
     foot:'<button class="btn ghost" data-close>'+esc(t("cancel"))+'</button><button class="btn" id="f-save">'+esc(existing?t("save"):t("create"))+'</button>',
     onMount:function(p){
-      var photo=c.photo||"";
+      var photo=c.photo||"", emoji=c.emoji||"";
+      p.querySelector("#f-avgrid").addEventListener("click",function(e){
+        var b=e.target.closest("[data-av]"); if(!b) return;
+        emoji=(emoji===b.dataset.av)?"":b.dataset.av; photo="";
+        p.querySelectorAll("#f-avgrid [data-av]").forEach(function(x){x.setAttribute("aria-pressed",String(x.dataset.av===emoji));});
+        var pv=p.querySelector("#prev"); pv.className="kidav h"+(c.hue||0)+(emoji?" em":"");
+        pv.innerHTML=emoji?esc(emoji):esc(initials({prenom:p.querySelector("#f-prenom").value||"?",nom:p.querySelector("#f-nom").value}));
+      });
       p.querySelector("#f-photo").addEventListener("change",function(e){
         var f=e.target.files&&e.target.files[0]; if(!f) return;
         var r=new FileReader();
@@ -1165,7 +1206,8 @@ function childForm(existing){
             var s=Math.min(img.width,img.height),cv=document.createElement("canvas");
             cv.width=cv.height=180;
             cv.getContext("2d").drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,180,180);
-            photo=cv.toDataURL("image/jpeg",.82);
+            photo=cv.toDataURL("image/jpeg",.82); emoji="";
+            p.querySelectorAll("#f-avgrid [data-av]").forEach(function(x){x.setAttribute("aria-pressed","false");});
             var pv=p.querySelector("#prev"); pv.className="kidav"; pv.innerHTML='<img src="'+photo+'" alt="">';
           };
           img.src=r.result;
@@ -1178,7 +1220,7 @@ function childForm(existing){
         var data={prenom:pr,nom:p.querySelector("#f-nom").value.trim(),dob:p.querySelector("#f-dob").value,
           mesure:p.querySelector("#f-mesure").value,depuis:p.querySelector("#f-depuis").value,
           lieu:p.querySelector("#f-lieu").value.trim(),ecole:p.querySelector("#f-ecole").value.trim(),
-          referent:p.querySelector("#f-referent").value.trim(),portrait:p.querySelector("#f-portrait").value.trim(),photo:photo};
+          referent:p.querySelector("#f-referent").value.trim(),portrait:p.querySelector("#f-portrait").value.trim(),photo:photo,emoji:emoji};
         if(existing){for(var k in data) existing[k]=data[k];}
         else{data.id=uid();data.hue=c.hue;data.antecedents=[];data.traits=[];data.contacts=[];state.children.push(data);}
         save();closePanel();render();
@@ -1250,23 +1292,28 @@ function entryForm(kid,when){
       });
     }});
 }
-function taskForm(kid,when){
-  var body=field(t("task_what"),'<input type="text" id="f-t" placeholder="'+esc(t("task_ph"))+'">')
-    +field(t("task_for"),kidSelect(kid||"",true))
-    +'<div class="two">'+field(t("due"),'<input type="date" id="f-due" value="'+(when||today())+'">')
-    +field(t("remind_at"),'<input type="time" id="f-heure" value="">')+'</div>'
+function taskForm(kid,when,existing){
+  var x=existing||{};
+  var body=field(t("task_what"),'<input type="text" id="f-t" value="'+esc(x.t||"")+'" placeholder="'+esc(t("task_ph"))+'">')
+    +field(t("task_for"),kidSelect(existing?(x.childId||""):(kid||""),true))
+    +'<div class="two">'+field(t("due"),'<input type="date" id="f-due" value="'+esc(existing?(x.due||""):(when||today()))+'">')
+    +field(t("remind_at"),'<input type="time" id="f-heure" value="'+esc(x.heure||"")+'">')+'</div>'
     +'<div class="hint" style="margin:-6px 0 13px">'+esc(t("remind_hint"))+'</div>'
-    +'<label class="switchrow" for="f-urg"><input type="checkbox" id="f-urg"> '+esc(t("is_priority"))+'</label>';
-  openPanel({title:t("new_task"),body:body,
-    foot:'<button class="btn ghost" data-close>'+esc(t("cancel"))+'</button><button class="btn" id="f-save">'+esc(t("add"))+'</button>',
+    +'<label class="switchrow" for="f-urg"><input type="checkbox" id="f-urg"'+(x.urgent?" checked":"")+'> '+esc(t("is_priority"))+'</label>';
+  openPanel({title:existing?t("edit_task"):t("new_task"),body:body,
+    foot:'<button class="btn ghost" data-close>'+esc(t("cancel"))+'</button><button class="btn" id="f-save">'+esc(existing?t("save"):t("add"))+'</button>',
     onMount:function(p){
       function go(){
         var v=p.querySelector("#f-t").value.trim();
         if(!v){toast(t("need_task"));return;}
-        state.tasks.push({id:uid(),t:v,childId:p.querySelector("#f-kid").value,
+        var data={t:v,childId:p.querySelector("#f-kid").value,
           due:p.querySelector("#f-due").value,heure:p.querySelector("#f-heure").value,
-          urgent:p.querySelector("#f-urg").checked,done:false});
-        save();closePanel();render();repaintTop();toast(t("task_added"));
+          urgent:p.querySelector("#f-urg").checked};
+        if(existing){
+          if(data.due!==existing.due||data.heure!==existing.heure) existing.fired=false;
+          for(var k in data) existing[k]=data[k];
+        } else { data.id=uid(); data.done=false; state.tasks.push(data); }
+        save();closePanel();render();repaintTop();toast(existing?t("task_saved"):t("task_added"));
       }
       p.querySelector("#f-save").addEventListener("click",go);
       p.querySelector("#f-t").addEventListener("keydown",function(e){if(e.key==="Enter")go();});
@@ -1519,6 +1566,12 @@ document.addEventListener("click",function(e){
   b=hit("[data-delcontact]"); if(b){var pc=b.dataset.delcontact.split(":"),c3=child(pc[0]);
     c3.contacts=c3.contacts.filter(function(x){return x.id!==pc[1];});save();repaintTop();return;}
 
+  b=hit("[data-addextra]"); if(b){var kx=b.dataset.addextra;
+    miniForm(t("add_extra"),[{k:"l",label:t("x_label"),ph:t("x_label_ph")},{k:"v",label:t("x_value"),ph:t("x_value_ph")}],
+      function(o){var c=child(kx);c.extras=c.extras||[];c.extras.push({id:uid(),l:o.l,v:o.v});save();});return;}
+  b=hit("[data-delextra]"); if(b){var px=b.dataset.delextra.split(":"),c4=child(px[0]);
+    c4.extras=c4.extras.filter(function(x){return x.id!==px[1];});save();repaintTop();return;}
+
   b=hit("[data-delkid]"); if(b){var kid=b.dataset.delkid,ck=child(kid);
     confirmPanel(t("del_kid_q",ck.prenom+" "+ck.nom,entriesOf(kid).length),t("del"),function(){
       state.children=state.children.filter(function(x){return x.id!==kid;});
@@ -1530,6 +1583,10 @@ document.addEventListener("click",function(e){
   b=hit("[data-toggle]"); if(b){
     var tk=state.tasks.filter(function(x){return x.id===b.dataset.toggle;})[0];
     if(tk){tk.done=!tk.done;save();render();repaintTop();}
+    return;}
+  b=hit("[data-edittask]"); if(b){
+    var et=state.tasks.filter(function(x){return x.id===b.dataset.edittask;})[0];
+    if(et) taskForm(null,null,et);
     return;}
   b=hit("[data-deltask]"); if(b){
     state.tasks=state.tasks.filter(function(x){return x.id!==b.dataset.deltask;});
@@ -1551,7 +1608,51 @@ document.addEventListener("click",function(e){
     render();window.scrollTo({top:0,behavior:"smooth"});return;}
 });
 
+/* ================= page d'accueil ================= */
+var QUOTES={
+ fr:["Tu fais un travail que peu de gens <em>osent</em> faire. Ça compte.",
+     "Un pas à la fois. Même les petits pas <em>avancent</em>.",
+     "Tu n'as pas à tout porter aujourd'hui. Juste <em>ce qui vient</em>.",
+     "Ce que tu fais pour eux, ils s'en <em>souviendront</em> — même sans le dire.",
+     "Prends une grande respiration. Tu es <em>à ta place</em>.",
+     "Tu as le droit d'être fatiguée <em>et</em> formidable en même temps.",
+     "La douceur est une force. La tienne <em>change des vies</em>.",
+     "Chaque écoute que tu offres est un <em>cadeau</em>.",
+     "Aujourd'hui, fais de ton mieux. Ton mieux <em>suffit</em>.",
+     "Tu n'es pas seule. Et eux non plus, <em>grâce à toi</em>.",
+     "Rien de ce que tu fais avec le cœur n'est <em>perdu</em>.",
+     "Le monde a besoin de gens comme toi. <em>Exactement</em> comme toi."],
+ en:["You do work few people <em>dare</em> to do. It matters.",
+     "One step at a time. Even small steps <em>move forward</em>.",
+     "You don't have to carry everything today. Just <em>what comes</em>.",
+     "What you do for them, they'll <em>remember</em> — even if they never say it.",
+     "Take a deep breath. You are <em>right where you belong</em>.",
+     "You're allowed to be tired <em>and</em> amazing at the same time.",
+     "Gentleness is a strength. Yours <em>changes lives</em>.",
+     "Every time you listen, you give a <em>gift</em>.",
+     "Do your best today. Your best is <em>enough</em>.",
+     "You're not alone. And neither are they, <em>thanks to you</em>.",
+     "Nothing done with heart is ever <em>wasted</em>.",
+     "The world needs people like you. <em>Exactly</em> like you."]
+};
+var qIdx=-1;
+function showQuote(){
+  var list=QUOTES[lang()],i;
+  do{i=Math.floor(Math.random()*list.length);}while(i===qIdx&&list.length>1);
+  qIdx=i; $("#wl-quote").innerHTML=list[i];
+}
+function showWelcome(){
+  $("#wl-hello").textContent=t("wl_hello");
+  $("#wl-enter").textContent=t("wl_enter");
+  $("#wl-other").textContent=t("wl_other");
+  showQuote();
+  $("#welcome").hidden=false;
+}
+$("#wl-enter").addEventListener("click",function(){$("#welcome").hidden=true;window.scrollTo(0,0);});
+$("#wl-other").addEventListener("click",showQuote);
+
 render();
+showWelcome();
 checkReminders();
 
 if("serviceWorker" in navigator && location.protocol.indexOf("http")===0){
@@ -1609,6 +1710,39 @@ button.task:hover{background:var(--surface-2)}
 .callegend{margin-top:9px;text-align:center;font-family:var(--mono);font-size:10px;
   text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
 @media (min-width:560px){.app{min-height:100vh}}
+
+/* --- page d'accueil --- */
+.welcome{position:fixed;inset:0;z-index:80;background:var(--ground);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.wl-inner{max-width:400px;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.wl-people{display:flex;align-items:flex-end;justify-content:center;gap:6px;margin-bottom:6px}
+.wl-people .pp{width:84px;height:105px;display:block;animation:bob 3.2s ease-in-out infinite}
+.wl-people .p1{animation-delay:0s;transform-origin:bottom}
+.wl-people .p2{width:100px;height:125px;animation-delay:.5s}
+.wl-people .p3{animation-delay:1s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media (prefers-reduced-motion:reduce){.wl-people .pp{animation:none}}
+.wl-hello{font-family:var(--display);font-size:30px;font-weight:600;color:var(--accent);line-height:1.1}
+.wl-quote{font-size:19px;line-height:1.45;color:var(--ink);font-weight:500;min-height:3.5em;text-wrap:balance;padding:0 6px}
+.wl-quote em{font-style:normal;color:var(--pop)}
+.welcome .btn{margin-top:6px;padding:14px 30px;font-size:16px}
+.wl-other{font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:6px 10px;border-radius:999px}
+.wl-other:hover{color:var(--ink)}
+
+/* --- icônes d'onglets --- */
+.seg button{display:inline-flex;align-items:center;justify-content:center;gap:5px}
+.seg button svg{width:15px;height:15px;flex:none}
+.rowedit{right:40px}
+
+/* --- avatars ---- */
+.avgrid{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 4px}
+.avgrid button{width:42px;height:42px;border-radius:50%;background:var(--surface);font-size:22px;line-height:1;display:grid;place-items:center;border:2.5px solid transparent}
+.avgrid button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.kidav.em,.face.em,.av.em{font-size:1.45em;line-height:1}
+.extra{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.45}
+.extra:last-child{border-bottom:0}
+.extra .xl{font-weight:700;flex:none;max-width:40%}
+.extra .xv{color:var(--ink-2);word-break:break-word;flex:1}
+.extra .xv a{color:var(--pop);font-weight:600;text-decoration:underline;text-underline-offset:2px}
 </style>
 </body>
 </html>
