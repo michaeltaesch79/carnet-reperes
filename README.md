@@ -1,4 +1,4 @@
-# Carnet Repères
+# Badass Social Worker
 
 Carnet de terrain pour travailleuse sociale. Une seule page, pensée pour le téléphone :
 les enfants suivis en bulles tout en haut, la to-do du jour à la place du fil d'actualité,
@@ -49,7 +49,7 @@ Conséquences à connaître :
    ```bash
    git init
    git add .
-   git commit -m "Carnet Repères"
+   git commit -m "Badass Social Worker"
    git branch -M main
    git remote add origin https://github.com/VOTRE-COMPTE/carnet-reperes.git
    git push -u origin main

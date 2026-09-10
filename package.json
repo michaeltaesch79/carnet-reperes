@@ -1,8 +1,8 @@
 {
-  "name": "carnet-reperes",
+  "name": "badass-social-worker",
   "version": "1.0.0",
   "private": true,
-  "description": "Carnet de repères static app for Railway deployment",
+  "description": "Badass Social Worker static app for Railway deployment",
   "scripts": {
     "start": "node server.js"
   },

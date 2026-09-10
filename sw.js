@@ -1,9 +1,9 @@
-/* Service worker du Carnet Repères.
+/* Service worker de Badass Social Worker.
    Rôle : rendre l'application utilisable hors connexion.
    Il ne touche jamais aux données du carnet — celles-ci vivent dans
    localStorage, sur l'appareil, et ne transitent par aucun cache réseau. */
 
-const VERSION = "reperes-v3";
+const VERSION = "badass-v4";
 const SHELL = [
   "./",
   "./index.html",

@@ -54,5 +54,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(port, () => {
-  console.log(`Carnet Repères served on http://localhost:${port}`);
+  console.log(`Badass Social Worker served on http://localhost:${port}`);
 });
