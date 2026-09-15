@@ -334,12 +334,12 @@ main{padding:0 18px 128px}
   width:64px;height:64px;border-radius:50%;flex:none;display:grid;place-items:center;overflow:hidden;
   font-family:var(--display);font-weight:600;font-size:24px;
 }
-.kidav img{width:100%;height:100%;object-fit:cover}
+.kidav svg{width:100%;height:100%;display:block}
 .kidname{font-size:22px;font-weight:600;line-height:1.15}
 .kidsub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.02em}
 .kidtabs{display:flex;gap:2px;margin:0 18px 12px;padding:4px;background:var(--surface-2);border-radius:999px}
 .kidtabs button{
-  flex:1;padding:7px 10px;border-radius:999px;font-size:13px;font-weight:600;color:var(--muted);
+  flex:1;padding:7px 5px;border-radius:999px;font-size:12px;font-weight:600;color:var(--muted);
 }
 .kidtabs button[aria-selected="true"]{background:var(--ink);color:var(--ground)}
 .kidtabs .count{font-family:var(--mono);font-size:11px;margin-left:4px;opacity:.75}
@@ -581,7 +581,7 @@ var T={
  noresult_h:["Aucun résultat","No results"], noresult_p:["Rien ne correspond à « %1 » dans le carnet.","Nothing matches “%1” in the notebook."],
  r_children:["Enfants","Children"], r_tasks:["To-do","To-do"], r_reports:["Comptes rendus","Reports"],
 
- tab_profil:["Profil","Profile"], tab_journal:["Journal","Journal"], tab_taches:["To-do","To-do"],
+ tab_profil:["Profil","Profile"], tab_journal:["Journal","Journal"], tab_taches:["To-do","To-do"], tab_cal:["Calendrier","Calendar"],
  s_situation:["Situation","Situation"], s_ant:["Antécédents","History"], s_how:["Comment il/elle est","What they're like"],
  s_people:["Personnes ressources","Key people"],
  f_measure:["Mesure","Order"], f_since:["Depuis","Since"], f_home:["Lieu de vie","Living arrangement"],
@@ -601,7 +601,7 @@ var T={
  approach:["Comment l'aborder","How to approach them"],
  approach_ph:["Ce qui l'apaise, ce qui le bloque, ce qu'il faut annoncer à l'avance…","What calms them, what blocks them, what to announce in advance…"],
  rest_hint:["Le reste — antécédents, contacts, traits — s'ajoute ensuite depuis sa fiche.","The rest — history, contacts, traits — is added later from their profile."],
- photo_opt:["Photo facultative.","Photo optional."], photo_dev:["Elle reste sur cet appareil.","It stays on this device."],
+ photo_opt:["Les photos ne sont pas utilisées.","Photos are not used."], photo_dev:["Choisissez une icône simple.","Choose a simple icon."],
  create:["Créer la fiche","Create profile"], need_first:["Le prénom est nécessaire","A first name is required"],
  saved_profile:["Fiche mise à jour","Profile updated"], added_kid:["%1 est dans le carnet","%1 is in the notebook"],
 
@@ -643,7 +643,7 @@ var T={
  x_label:["Titre","Title"], x_label_ph:["Dossier partagé, numéro de dossier, à retenir…","Shared folder, case number, keep in mind…"],
  x_value:["Contenu ou lien","Content or link"], x_value_ph:["Un texte, ou une adresse https://…","Some text, or an https:// address"],
  no_extra:["Rien pour l'instant. Utile pour un lien, un identifiant de dossier, une info qui n'entre nulle part ailleurs.","Nothing yet. Handy for a link, a case number, anything that fits nowhere else."],
- av_pick:["Choisir un avatar","Pick an avatar"], av_photo:["Ou une photo","Or a photo"],
+ av_pick:["Choisir une icône","Pick an icon"], av_photo:["Icône du profil","Profile icon"],
  rub_edit:["Modifier","Edit"], done_edit:["Terminé","Done"], rub_new:["Ajouter","Add"],
  rub_del:["Supprimer %1","Delete %1"], rub_name:["Nom","Name"],
  mn_title:["Le menu","Menu"], mn_home:["Page d'accueil","Welcome page"], mn_home_s:["Une citation pour souffler","A quote to catch your breath"],
@@ -967,7 +967,6 @@ var AVATARS=[
 ];
 function avatarSVG(id){for(var i=0;i<AVATARS.length;i++) if(AVATARS[i].id===id) return AVATARS[i].f();return "";}
 function avatar(c,cls){
-  if(c.photo) return '<span class="'+cls+'"><img src="'+esc(c.photo)+'" alt=""></span>';
   if(c.av&&avatarSVG(c.av)) return '<span class="'+cls+' draw">'+avatarSVG(c.av)+'</span>';
   if(c.emoji) return '<span class="'+cls+' em h'+(c.hue||0)+'">'+esc(c.emoji)+'</span>';
   return '<span class="'+cls+' h'+(c.hue||0)+'">'+esc(initials(c))+'</span>';
@@ -1198,7 +1197,8 @@ function openChild(id,tab){
     +'<div class="kidtabs" role="tablist">'
     +'<button role="tab" data-kidtab="profil">'+esc(t("tab_profil"))+'</button>'
     +'<button role="tab" data-kidtab="journal">'+esc(t("tab_journal"))+'<span class="count">'+entriesOf(c.id).length+'</span></button>'
-    +'<button role="tab" data-kidtab="taches">'+esc(t("tab_taches"))+'<span class="count">'+openTasks(c.id)+'</span></button></div>';
+    +'<button role="tab" data-kidtab="taches">'+esc(t("tab_taches"))+'<span class="count">'+openTasks(c.id)+'</span></button>'
+    +'<button role="tab" data-kidtab="cal">'+esc(t("tab_cal"))+'</button></div>';
   var p=openPanel({rawHead:head,body:"",focus:false,
     foot:'<button class="btn" data-newentry="'+c.id+'">'+esc(t("btn_report"))+'</button>'
         +'<button class="btn ghost" data-newtask="'+c.id+'">'+esc(t("btn_task"))+'</button>'});
@@ -1249,22 +1249,46 @@ function paintKid(p,id){
     var es=entriesOf(c.id);
     h+=es.length?'<ul class="tl">'+es.map(entryHTML).join("")+'</ul>'
       :'<div class="empty"><h3>'+esc(t("empty_journal_h"))+'</h3><p>'+esc(t("empty_journal_p"))+'</p></div>';
-  } else {
+  } else if(kidTab==="taches") {
     var ts=tasksOf(c.id).sort(function(a,b){return (a.done?1:0)-(b.done?1:0)||String(a.due).localeCompare(String(b.due));});
     h+=ts.length?'<ul class="stack">'+ts.map(taskHTML).join("")+'</ul>'
       :'<div class="empty"><h3>'+esc(t("empty_tasks_h"))+'</h3><p>'+esc(t("empty_tasks_p",c.prenom))+'</p></div>';
+  } else {
+    h+=kidCalendarHTML(c,p);
   }
   body.innerHTML=h;
   body.scrollTop=0;
+}
+function kidCalendarHTML(c,p){
+  var month=p.dataset.kidcalmonth||firstOfMonth(today()), selected=p.dataset.kidcalday||today();
+  var d0=parseD(month),y=d0.getFullYear(),mo=d0.getMonth(),offset=(d0.getDay()+6)%7,ndays=new Date(y,mo+1,0).getDate();
+  var cells=Math.ceil((offset+ndays)/7)*7;
+  var h='<div class="calnav"><button class="iconbtn" data-kidcalnav="-1" aria-label="&#8249;">&#8249;</button>'
+    +'<div class="calmonth">'+esc(MOISLONG[lang()][mo]+" "+y)+'</div><button class="iconbtn" data-kidcalnav="1" aria-label="&#8250;">&#8250;</button></div>';
+  var DOW=lang()==="en"?["M","T","W","T","F","S","S"]:["L","M","M","J","V","S","D"];
+  h+='<div class="calgrid">'+DOW.map(function(x){return '<span class="cdow">'+x+'</span>';}).join("");
+  for(var i=0;i<cells;i++){
+    var day=i-offset+1;if(day<1||day>ndays){h+='<span class="cday out"></span>';continue;}
+    var ds=iso(new Date(y,mo,day)),tk=state.tasks.filter(function(x){return x.childId===c.id&&x.due===ds&&!x.done;}),en=state.entries.filter(function(x){return x.childId===c.id&&x.date===ds;});
+    var dots=(tk.length?'<i class="dot"></i>':'')+(en.length?'<i class="dot hollow"></i>':'');
+    h+='<button class="cday'+(ds===today()?" now":"")+(ds===selected?" sel":"")+'" data-kidday="'+ds+'"><b>'+day+'</b><span class="dots">'+dots+'</span></button>';
+  }
+  h+='</div><div class="callegend">'+esc(t("cal_legend"))+'</div><div class="grouphead" style="margin-top:18px">'+esc(fmtLong(selected))+'</div>';
+  var dayTasks=state.tasks.filter(function(x){return x.childId===c.id&&x.due===selected;});
+  var dayEnts=state.entries.filter(function(x){return x.childId===c.id&&x.date===selected;});
+  if(!dayTasks.length&&!dayEnts.length) h+='<p style="font-size:13px;color:var(--muted);margin-bottom:10px">'+esc(t("cal_nothing"))+'</p>';
+  if(dayTasks.length) h+='<ul class="stack">'+dayTasks.map(taskHTML).join("")+'</ul>';
+  if(dayEnts.length) h+='<ul class="stack" style="margin-top:8px">'+dayEnts.map(entryHTML).join("")+'</ul>';
+  return h;
 }
 function refreshKidHead(p){
   var c=child(p.dataset.kidsheet); if(!c) return;
   p.querySelector(".kidname").textContent=c.prenom+" "+c.nom;
   p.querySelector(".kidsub").textContent=[age(c.dob),mesureLabel(c.mesure),c.lieu||""].filter(Boolean).join(" · ");
   var av=p.querySelector(".kidhead .kidav");
-  var drawn=!c.photo&&c.av&&avatarSVG(c.av);
-  av.className="kidav"+(c.photo?"":(drawn?" draw":" h"+(c.hue||0)))+(c.emoji&&!c.photo&&!drawn?" em":"");
-  av.innerHTML=c.photo?'<img src="'+esc(c.photo)+'" alt="">':(drawn?avatarSVG(c.av):esc(c.emoji||initials(c)));
+  var drawn=c.av&&avatarSVG(c.av);
+  av.className="kidav"+(drawn?" draw":" h"+(c.hue||0))+(c.emoji&&!drawn?" em":"");
+  av.innerHTML=drawn?avatarSVG(c.av):esc(c.emoji||initials(c));
 }
 
 /* ================= formulaires ================= */
@@ -1284,12 +1308,10 @@ function childForm(existing){
   if(c.mesure&&MESKEYS.indexOf(c.mesure)<0) opts='<option value="'+esc(c.mesure)+'" selected>'+esc(c.mesure)+'</option>'+opts;
   var body=
     '<div style="display:flex;gap:14px;align-items:center;margin-bottom:14px">'
-    +'<label for="f-photo" style="cursor:pointer">'
-    +'<span id="prev" class="kidav '+(c.photo?"":(c.av?"draw":"h"+(c.hue||0)))+'">'+(c.photo?'<img src="'+esc(c.photo)+'" alt="">':(c.av?avatarSVG(c.av):'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="width:22px;height:22px"><path d="M3 7h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.5"/></svg>'))+'</span></label>'
-    +'<input type="file" id="f-photo" accept="image/*" hidden>'
-    +'<div style="font-size:12.5px;color:var(--muted);line-height:1.45"><b style="color:var(--ink)">'+esc(t("av_photo"))+'</b><br>'+esc(t("photo_opt"))+' '+esc(t("photo_dev"))+'</div></div>'
+    +'<span id="prev" class="kidav '+(c.av?"draw":"h"+(c.hue||0))+'">'+(c.av?avatarSVG(c.av):esc(initials(c)))+'</span>'
+    +'<div style="font-size:12.5px;color:var(--muted);line-height:1.45"><b style="color:var(--ink)">'+esc(t("av_photo"))+'</b><br>'+esc(t("photo_dev"))+'</div></div>'
     +'<div class="field"><label>'+esc(t("av_pick"))+'</label><div class="avgrid" id="f-avgrid">'
-    +AVATARS.map(function(a){return '<button type="button" data-av="'+a.id+'" aria-pressed="'+(c.av===a.id&&!c.photo)+'">'+a.f()+'</button>';}).join("")
+    +AVATARS.map(function(a){return '<button type="button" data-av="'+a.id+'" aria-pressed="'+(c.av===a.id)+'">'+a.f()+'</button>';}).join("")
     +'</div></div>'
     +'<div class="two">'+field(t("first"),'<input type="text" id="f-prenom" value="'+esc(c.prenom||"")+'">')
     +field(t("last"),'<input type="text" id="f-nom" value="'+esc(c.nom||"")+'">')+'</div>'
@@ -1303,30 +1325,13 @@ function childForm(existing){
   openPanel({title:existing?t("edit"):t("new_child"),body:body,
     foot:'<button class="btn ghost" data-close>'+esc(t("cancel"))+'</button><button class="btn" id="f-save">'+esc(existing?t("save"):t("create"))+'</button>',
     onMount:function(p){
-      var photo=c.photo||"", av=c.av||"";
+      var av=c.av||"";
       p.querySelector("#f-avgrid").addEventListener("click",function(e){
         var b=e.target.closest("[data-av]"); if(!b) return;
-        av=(av===b.dataset.av)?"":b.dataset.av; photo="";
+        av=(av===b.dataset.av)?"":b.dataset.av;
         p.querySelectorAll("#f-avgrid [data-av]").forEach(function(x){x.setAttribute("aria-pressed",String(x.dataset.av===av));});
         var pv=p.querySelector("#prev"); pv.className="kidav "+(av?"draw":"h"+(c.hue||0));
         pv.innerHTML=av?avatarSVG(av):esc(initials({prenom:p.querySelector("#f-prenom").value||"?",nom:p.querySelector("#f-nom").value}));
-      });
-      p.querySelector("#f-photo").addEventListener("change",function(e){
-        var f=e.target.files&&e.target.files[0]; if(!f) return;
-        var r=new FileReader();
-        r.onload=function(){
-          var img=new Image();
-          img.onload=function(){
-            var s=Math.min(img.width,img.height),cv=document.createElement("canvas");
-            cv.width=cv.height=180;
-            cv.getContext("2d").drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,180,180);
-            photo=cv.toDataURL("image/jpeg",.82); av="";
-            p.querySelectorAll("#f-avgrid [data-av]").forEach(function(x){x.setAttribute("aria-pressed","false");});
-            var pv=p.querySelector("#prev"); pv.className="kidav"; pv.innerHTML='<img src="'+photo+'" alt="">';
-          };
-          img.src=r.result;
-        };
-        r.readAsDataURL(f);
       });
       p.querySelector("#f-save").addEventListener("click",function(){
         var pr=p.querySelector("#f-prenom").value.trim();
@@ -1334,7 +1339,7 @@ function childForm(existing){
         var data={prenom:pr,nom:p.querySelector("#f-nom").value.trim(),dob:p.querySelector("#f-dob").value,
           mesure:p.querySelector("#f-mesure").value,depuis:p.querySelector("#f-depuis").value,
           lieu:p.querySelector("#f-lieu").value.trim(),ecole:p.querySelector("#f-ecole").value.trim(),
-          referent:p.querySelector("#f-referent").value.trim(),portrait:p.querySelector("#f-portrait").value.trim(),photo:photo,av:av,emoji:""};
+          referent:p.querySelector("#f-referent").value.trim(),portrait:p.querySelector("#f-portrait").value.trim(),photo:"",av:av,emoji:""};
         if(existing){for(var k in data) existing[k]=data[k];}
         else{data.id=uid();data.hue=c.hue;data.antecedents=[];data.traits=[];data.contacts=[];state.children.push(data);}
         save();closePanel();render();
@@ -1715,6 +1720,12 @@ document.addEventListener("click",function(e){
     });return;}
 
   b=hit("[data-kidtab]"); if(b){kidTab=b.dataset.kidtab;repaintTop();return;}
+  b=hit("[data-kidcalnav],[data-kidday]"); if(b){
+    var kp=topKid(); if(!kp) return;
+    if(b.hasAttribute("data-kidcalnav")) kp.dataset.kidcalmonth=addMonths(kp.dataset.kidcalmonth||firstOfMonth(today()),+b.dataset.kidcalnav);
+    else kp.dataset.kidcalday=b.dataset.kidday;
+    repaintTop();return;
+  }
   b=hit("[data-editkid]"); if(b){childForm(child(b.dataset.editkid));return;}
   b=hit("[data-newentry]"); if(b){entryForm(b.dataset.newentry);return;}
   b=hit("[data-newtask]"); if(b){taskForm(b.dataset.newtask);return;}
